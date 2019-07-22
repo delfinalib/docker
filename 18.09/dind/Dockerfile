@@ -1,4 +1,6 @@
-FROM docker:18.09
+FROM delfinalib/raspberry-pi-alpine-docker
+
+RUN [ "cross-build-start" ]
 
 # https://github.com/docker/docker/blob/master/project/PACKAGERS.md#runtime-dependencies
 RUN set -eux; \
@@ -35,6 +37,8 @@ ENV DIND_COMMIT 37498f009d8bf25fbb6199e8ccd34bed84f2874b
 RUN set -eux; \
 	wget -O /usr/local/bin/dind "https://raw.githubusercontent.com/docker/docker/${DIND_COMMIT}/hack/dind"; \
 	chmod +x /usr/local/bin/dind
+
+RUN [ "cross-build-end" ]
 
 COPY dockerd-entrypoint.sh /usr/local/bin/
 
