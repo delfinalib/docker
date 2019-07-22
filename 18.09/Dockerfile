@@ -1,4 +1,6 @@
-FROM alpine:3.10
+FROM balenalib/raspberry-pi-alpine
+
+RUN [ "cross-build-start" ]
 
 RUN apk add --no-cache \
 		ca-certificates
@@ -45,6 +47,8 @@ RUN set -eux; \
 	\
 	dockerd --version; \
 	docker --version
+
+RUN [ "cross-build-end" ]
 
 COPY modprobe.sh /usr/local/bin/modprobe
 COPY docker-entrypoint.sh /usr/local/bin/
